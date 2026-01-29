@@ -1,44 +1,68 @@
-            - name: Deploy to Kubernetes cluster
-  uses: Azure/k8s-deploy@v4.9
+            - name: Deploy to Azure Container Instances
+  uses: Azure/aci-deploy@v1
   with:
-    # Choose the target Kubernetes namespace. If the namespace is not provided, the commands will run in the default namespace.
-    namespace: # optional, default is default
-    # Path to the manifest files which will be used for deployment.
-    manifests: 
-    # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
-    images: # optional
-    # Name of a docker-registry secret that has already been set up within the cluster. Each of these secret names are added under imagePullSecrets field for the workloads found in the input manifest files
-    imagepullsecrets: # optional
-    # Switch whether to pull the images from the registry before deployment to find out Dockerfile's path in order to add it to the annotations
-    pull-images: # optional, default is true
-    # Deployment strategy to be used. Allowed values are basic, canary and blue-green
-    strategy: # default is basic
-    # Route based on service, ingress or SMI for blue-green strategy
-    route-method: # optional, default is service
-    # Indicates the buffer time in minutes before the switch is made to the green version (max is 300 min ie. 5hrs)
-    version-switch-buffer: # optional, default is 0
-    # Traffic split method to be used. Allowed values are pod and smi
-    traffic-split-method: # optional, default is pod
-    # Annotations in the form of key/value pair to be added to TrafficSplit. Relevant only if deployement strategy is blue-green or canary
-    traffic-split-annotations: # optional
-    # Baseline and canary replicas count. Valid value between 0 to 100 (inclusive)
-    baseline-and-canary-replicas: # optional, default is 
-    # Percentage of traffic redirect to canary deployment
-    percentage: # optional, default is 0
-    # deploy, promote, or reject
-    action: # default is deploy
-    # Deploy when a previous deployment already exists. If true then --force argument is added to the apply command
-    force: # optional
-    # Github token
-    token: # default is ${{ github.token }}
-    # Annotate the target namespace
-    annotate-namespace: # optional, default is true
-    # True if cluster is AKS private cluster
-    private-cluster: # optional
-    # Name of resource group - Only required if using private cluster
-    resource-group: # optional
-    # Resource group name - Only required if using private cluster
-    name: # optional
-    # True if the insecure-skip-tls-verify option should be used. Input should be 'true' or 'false'.
-    skip-tls-verify: # optional
+    # Name of the Resource Group in which the Container Instance will be created
+    resource-group: 
+    # The storage account access key used to access the Azure File Share
+    azure-file-volume-account-key: # optional, default is 
+    # The name of the storage account that contains the Azure File Share
+    azure-file-volume-account-name: # optional, default is 
+    # The path within the container where the Azure File Volume should be mounted. Must not contain ":"
+    azure-file-volume-mount-path: # optional, default is 
+    # The name of the Azure File Share to be mounted as a volume
+    azure-file-volume-share-name: # optional, default is 
+    # Should the Azure File Share be Mounted as Read Only. Accepted { true, false }
+    azure-file-volume-read-only: # optional, default is 
+    # The command line to run when the container is started, e.g. "/bin/bash -c myscript.sh"
+    command-line: # optional, default is 
+    # Number of CPU Cores Required
+    cpu: # optional, default is 1
+    # The DNS Name Label for Container with Public IP
+    dns-name-label: 
+    # List of environment variables for the container. Space-seperated in "key=value" format
+    environment-variables: # optional, default is 
+    # The target directory path in the git repository. Must not contain ".."
+    gitrepo-dir: # optional, default is 
+    # The path within the container where the git repo volume should be mounted. Must not contain ":"
+    gitrepo-mount-path: # optional, default is 
+    # The commit hash for the specified revision
+    gitrepo-revision: # optional, default is 
+    # The URL of a git repository to be mounted as a volume
+    gitrepo-url: # optional, default is 
+    # The Number of GPU Resources needed in the Container
+    gpu-count: # optional, default is 
+    # The SKU for the GPUs specified. Accepted Values are { K80, P100, V100 }
+    gpu-sku: # optional, default is 
+    # Specify the fully qualified container image name. For example, "myregistry.azurecr.io/nginx:latest" or "python:3.7.2-alpine/"
+    image: 
+    # IP Address type of the Container Group. Accepted Values are { Private, Public }.Currently it only supports { Public }
+    ip-address: # optional, default is Public
+    # Location where the Container will be deployed
+    location: 
+    # The Log Analytics Workspace Name or Id
+    log-analytics-workspace: # optional
+    # The Log Analytics Workspace Key
+    log-analytics-workspace-key: # optional
+    # The Log type to be used. Accepted Values are { ContainerInsights, ContainerInstanceLogs }
+    log-type: # optional
+    # Required Memory of the Containers in GB, accurate to one decimal place
+    memory: # optional, default is 1.5
+    # Name of the Container Group Instance
+    name: 
+    # The OS type of the Containers. Accepted Values are  { Linux, Windows }
+    os-type: # optional, default is Linux
+    # The Ports to Open on the Container. Space seperate the ports for multiple values
+    ports: # optional, default is 80
+    # The Network protocol to use. Accepted Values are { TCP, UDP }
+    protocol: # optional, default is TCP
+    # The container image registry login server
+    registry-login-server: # optional, default is 
+    # Username to log in Container Image Registry Server
+    registry-username: # optional, default is 
+    # Password to log in Container Image Registry Server
+    registry-password: # optional, default is 
+    # Restart Policy for the container(s). Accepted Values are { Always, OnFailure, Never }
+    restart-policy: # optional, default is Always
+    # List of secure environment variables for the container. Space seperated values in "key=value" format
+    secure-environment-variables: # optional, default is 
           
