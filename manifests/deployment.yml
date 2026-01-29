@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: kimanhmediasvnn 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kimanhmediasvnn
+  template:
+    metadata:
+      labels:
+        app: kimanhmediasvnn 
+    spec:
+      containers:
+        - name: kimanhmediasvnn 
+          image: ca0302dcdfbfacr.azurecr.io/kimanhmediasvnn
+          ports:
+          - containerPort: 80
